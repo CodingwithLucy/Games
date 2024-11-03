@@ -10,33 +10,41 @@
 
 </body>
 <script>
-    let words = ["algorithm", "variable", "function", "loop", "array", "debugging", "compiler", "syntax", "framework", "library"];
-    let word = words[Math.floor(Math.random() * words.length)];
-    let answerArray = new Array(word.length).fill("_");
-    let guessedLetters = [];
-    let otherLetters = word.length;
+    let userName = prompt("Hello, what is your name?");
+    let playGame = confirm(`${userName}, do you want to play?`);
 
-    while (otherLetters > 0) {
-        alert(answerArray.join(" "));
-        let guess = prompt("Guess a letter, or click cancel.");
-        if (guess === null) {
-            break;
-        } else if (guess.length !== 1) {
-            alert("Enter a single letter.");
-        } else if (guessedLetters.includes(guess)) {
-            alert("Please try different letter.")
-        } else {
-            guessedLetters.push(guess);
-            for (let j = 0; j < word.length; j++) {
-                if (word[j] === guess) {
-                    answerArray[j] = guess;
-                    otherLetters--;
+    if (playGame) {
+        let words = ["algorithm", "variable", "function", "loop", "array", "debugging", "compiler", "syntax", "framework", "library"];
+        let word = words[Math.floor(Math.random() * words.length)];
+        alert("The word drawn for you is: ")
+        let answerArray = new Array(word.length).fill("_");
+        let guessedLetters = [];
+        let otherLetters = word.length;
+
+        while (otherLetters > 0) {
+            alert(answerArray.join(" "));
+            let guess = prompt("Guess a letter, or click cancel.");
+            if (guess === null) {
+                break;
+            } else if (guess.length !== 1) {
+                alert("Enter a single letter.");
+            } else if (guessedLetters.includes(guess)) {
+                alert("Please try different letter.")
+            } else {
+                guessedLetters.push(guess);
+                for (let j = 0; j < word.length; j++) {
+                    if (word[j] === guess) {
+                        answerArray[j] = guess;
+                        otherLetters--;
+                    }
                 }
             }
         }
+        alert(answerArray.join(" "));
+        alert("Good job! The answer was " + word + " :D");
+    } else {
+        alert("Ok, maybe next time!");
     }
-    alert(answerArray.join(" "));
-    alert("Good job! The answer was " + word + " :D");
 </script>
 
 </html>
