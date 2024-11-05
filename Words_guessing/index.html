@@ -16,12 +16,14 @@
     if (playGame) {
         let words = ["algorithm", "variable", "function", "loop", "array", "debugging", "compiler", "syntax", "framework", "library"];
         let word = words[Math.floor(Math.random() * words.length)];
-        alert("The word drawn for you is: ")
+        alert("The word chosen for you is:")
         let answerArray = new Array(word.length).fill("_");
         let guessedLetters = [];
         let otherLetters = word.length;
+        let wrongGuesses = 0;
+        let maximumWrongGuesses = 7;
 
-        while (otherLetters > 0) {
+        while (otherLetters > 0 && wrongGuesses < maximumWrongGuesses) {
             alert(answerArray.join(" "));
             let guess = prompt("Guess a letter, or click cancel.");
             if (guess === null) {
@@ -32,16 +34,26 @@
                 alert("Please try different letter.")
             } else {
                 guessedLetters.push(guess);
+                let correctGuess = false;
                 for (let j = 0; j < word.length; j++) {
                     if (word[j] === guess) {
                         answerArray[j] = guess;
                         otherLetters--;
+                        correctGuess = true;
                     }
                 }
+                if (!correctGuess) {
+                    wrongGuesses++;
+                }
             }
+            alert(`Left to try: ${maximumWrongGuesses - wrongGuesses}`)
         }
-        alert(answerArray.join(" "));
-        alert("Good job! The answer was " + word + " :D");
+        if (wrongGuesses < maximumWrongGuesses) {
+            alert(answerArray.join(" "));
+            alert("Good job! The answer was " + word + " :D");
+        } else {
+            alert(`Unfortunately, you finished limit of possible ${maximumWrongGuesses} errors. Your word was: ${word}.`);
+        }
     } else {
         alert("Ok, maybe next time!");
     }
